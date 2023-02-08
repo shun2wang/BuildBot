@@ -22,6 +22,11 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
            needs: check
+           
+      - name: Test Rtools installation
+        run: |
+           install.packages("jsonlite", type = "source")
+        shell: Rscript {0}
 
       - name: install Qt6
         uses: jurplel/install-qt-action@v3
