@@ -1,5 +1,7 @@
 name: 'Build JASP desktop'
-description: 'Auto build JASP application on Win/Mac/Linux'
+
+on:
+   workflow_call:
 
 jobs:
       
