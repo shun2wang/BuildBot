@@ -24,4 +24,5 @@ jobs:
            version: 6.4.*
            
       - name: Install MSVC dev environment
+        if: runner.os == 'Windows'
         uses: ilammy/msvc-dev-cmd@v1
