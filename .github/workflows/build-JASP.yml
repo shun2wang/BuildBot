@@ -40,7 +40,5 @@ jobs:
             
       - name: Build JASP
         run: |
-            echo cd jasp-desktop
-            echo ls
-            echo cmake -S jasp-desktop
-        shell: powershell
+             ./script/buildJASP.cmd
+        shell: bash
