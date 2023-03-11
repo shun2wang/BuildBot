@@ -6,14 +6,11 @@ on:
 jobs:
       
    build-jasp:
-   
-    runs-on: ${{ matrix.os }}
-    name: ${{ matrix.os }} 
+    runs-on: windows-latest
+    name: windows-latest-build-env 
 
     strategy:
       fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
         
     steps:
       - uses: actions/checkout@v3
@@ -39,4 +36,8 @@ jobs:
       - name: Get JASP desktop repo
         run: |
             git clone https://github.com/jasp-stats/jasp-desktop.git
-            echo cd jasp-desktop
+            
+      - name: Build JASP
+        run: |
+             ./script/buildJASP.cmd
+        shell: bash
