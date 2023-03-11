@@ -6,7 +6,6 @@ on:
 jobs:
       
    build-jasp:
-   
     runs-on: windows-latest
     name: windows-latest-build-env 
 
