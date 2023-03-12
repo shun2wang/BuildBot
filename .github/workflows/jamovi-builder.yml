@@ -13,7 +13,16 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }} (builder)
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    
+    env:
+       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
     steps:
       -
         name: Checkout
@@ -31,3 +40,11 @@ jobs:
             cd jamovi
             git submodule update --init --recursive
             docker-compose build
+      -
+        name: Upload built artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: jamovi
+          path: |
+                ${{ github.workspace }}/**/*jamovi*.exe
+                ${{ github.workspace }}/**/*jamovi*.flatpak
