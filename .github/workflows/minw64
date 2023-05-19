@@ -1,0 +1,21 @@
+name: 'mingw64 environment'
+
+on:
+  push:
+    branches:
+       - main
+       - dev
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    env:
+       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install MinGW
+        uses: egor-tensin/setup-mingw@v2.2.0
