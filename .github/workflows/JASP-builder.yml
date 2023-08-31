@@ -35,5 +35,6 @@ jobs:
       - name: Get JASP desktop repo
         run: |
             git clone  https://github.com/jasp-stats/jasp-desktop.git
-            echo cd jasp-desktop
+            cmake -S ./jasp-desktop -B ./jasp-release
+            cmake -build ./jasp-release --target all
             
