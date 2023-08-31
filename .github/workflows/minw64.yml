@@ -2,6 +2,7 @@ name: 'mingw64 environment'
 
 on:
   push:
+    paths: ['**/minw64*.yml']
     branches:
        - main
        - dev
