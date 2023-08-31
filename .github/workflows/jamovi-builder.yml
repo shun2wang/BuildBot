@@ -2,6 +2,7 @@ name: jamovi-builder
 
 on:
   push:
+    paths: ['**/jamovi*.yml']
     branches:
        - main
        - dev
