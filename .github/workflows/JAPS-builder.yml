@@ -7,13 +7,8 @@ jobs:
       
    build-jasp:
    
-    runs-on: ${{ matrix.os }}
-    name: ${{ matrix.os }} 
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+    runs-on: ubuntu-latest
+    name:  deb build on ubuntu-latest
         
     steps:
       - uses: actions/checkout@v3
@@ -30,13 +25,14 @@ jobs:
         with:
             version: 6.4.*
            
-      - name: Install MSVC dev environment
-        if: runner.os == 'Windows'
-        uses: ilammy/msvc-dev-cmd@v1
-        with:
-            edtion: Community
+      - name: Install dependencies of build system
+        run: |
+            sudo apt install libboost-dev libjsoncpp25 libjsoncpp-dev libarchive13 libarchive-dev
+            sudo apt install libxcb-xkb-dev libxcb-xkb1 libxcb-xinerama0 libxkbcommon-dev libxkbcommon-x11-dev autoconf zlib1g zlib1g-dev cmake
+            sudo apt install gfortran build-essential flex libssl-dev libgl1-mesa-dev libsqlite3-dev r-base
         
       - name: Get JASP desktop repo
         run: |
             git clone https://github.com/jasp-stats/jasp-desktop.git
             echo cd jasp-desktop
+            
