@@ -2,6 +2,7 @@ name: 'Build JASP desktop'
 
 on:
    push:
+     paths: ['**/JASP*.yml']
 
 jobs:
       
@@ -33,6 +34,6 @@ jobs:
         
       - name: Get JASP desktop repo
         run: |
-            git clone https://github.com/jasp-stats/jasp-desktop.git
+            git clone  https://github.com/jasp-stats/jasp-desktop.git
             echo cd jasp-desktop
             
