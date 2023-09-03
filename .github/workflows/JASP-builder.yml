@@ -32,7 +32,8 @@ jobs:
             host: 'linux'
             target: 'desktop'
             arch: 'gcc_64'
-            modules: 'qtwebchannel qtwebengine qtwebsockets debug_info qt5compat qtshadertools qtwaylandcompositor'
+            modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtwebview debug_info qt5compat qtshadertools qtwaylandcompositor'
+            tools: 'tools_qtcreator,qt.tools.qtcreator tools_qtcreator,qt.tools.qtcreatordbg'
             
       - name: Install dependencies of build system
         run: |     
