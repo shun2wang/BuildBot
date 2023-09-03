@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-       PATH: '/home/runner/work/BuildBot/BuildBot/boost/boost'
        
     name:  deb build on ubuntu-latest
         
@@ -57,5 +56,9 @@ jobs:
         run: |
             git clone  https://github.com/jasp-stats/jasp-desktop.git
             cmake -S ./jasp-desktop -B ./jasp-release
-            cmake -build ./jasp-release --target all
+            # cmake -build ./jasp-release --target all
+            -DBoost_INCLUDE_DIR=${{steps.install-boost.outputs.BOOST_ROOT}}/include\
+            -DBoost_LIBRARY_DIRS=${{steps.install-boost.outputs.BOOST_ROOT}}/lib
+        env:
+            BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
             
