@@ -28,6 +28,11 @@ jobs:
         uses: jurplel/install-qt-action@v3
         with:
             version: 6.4.*
+            aqtversion: '==3.1.*'
+            host: 'linux'
+            target: 'desktop'
+            arch: 'gcc_64'
+            modules: 'qtwebengine'
             
       - name: Install dependencies of build system
         run: |     
