@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+       PATH: '/home/runner/work/BuildBot/BuildBot/boost/boost'
        
     name:  deb build on ubuntu-latest
         
