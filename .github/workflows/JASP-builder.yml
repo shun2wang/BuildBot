@@ -32,7 +32,7 @@ jobs:
             host: 'linux'
             target: 'desktop'
             arch: 'gcc_64'
-            modules: 'qtwebengine'
+            modules: 'qtwebchannel qtwebengine qtwebsockets debug_info qt5compat qtshadertools qtwaylandcompositor'
             
       - name: Install dependencies of build system
         run: |     
