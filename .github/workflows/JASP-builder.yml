@@ -21,7 +21,7 @@ jobs:
            
       - name: Test Rtools installation
         run: |
-           install.packages("jsonlite", type = "source")
+           install.packages("renv")
         shell: Rscript {0}
 
       - name: Install Qt6
