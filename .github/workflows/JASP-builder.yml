@@ -17,14 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-#      - uses: r-lib/actions/setup-r@v2
-#        with:
-#          r-version: '4.2.1'
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.2.1'
            
-#      - name: Rtools installation
-#        run: |
-#           install.packages("renv")
-#        shell: Rscript {0}
+      - name: Rtools installation
+        run: |
+           install.packages("renv")
+        shell: Rscript {0}
 
       - name: Install Qt6
         uses: jurplel/install-qt-action@v3
@@ -63,8 +63,8 @@ jobs:
       - name: Build JASP desktop
         run: |
             git clone  https://github.com/jasp-stats/jasp-desktop.git
-            # mkdir /home/runner/work/BuildBot/BuildBot/jasp-release/R/library && chmod -R 777 /home/runner/work/BuildBot/BuildBot/jasp-release/R/library
-            # Rscript -e 'install.packages("renv", lib="/home/runner/work/BuildBot/BuildBot/jasp-release/R/library")'
+            mkdir /home/runner/work/BuildBot/BuildBot/jasp-release/R/library && chmod -R 777 "/home/runner/work/BuildBot/BuildBot/jasp-release/R/library"
+            Rscript -e 'install.packages("renv", lib="/home/runner/work/BuildBot/BuildBot/jasp-release/R/library")'
             cmake -S ./jasp-desktop -B ./jasp-release
             # cmake -build ./jasp-release --target all
             -DBoost_INCLUDE_DIR=${{steps.install-boost.outputs.BOOST_ROOT}}/include\
