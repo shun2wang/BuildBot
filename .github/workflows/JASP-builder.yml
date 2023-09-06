@@ -21,10 +21,10 @@ jobs:
 #        with:
 #          r-version: '4.2.1'
            
-      - name: Rtools installation
-        run: |
-           install.packages("renv")
-        shell: Rscript {0}
+#      - name: Rtools installation
+#        run: |
+#           install.packages("renv")
+#        shell: Rscript {0}
 
       - name: Install Qt6
         uses: jurplel/install-qt-action@v3
