@@ -63,7 +63,7 @@ jobs:
       - name: Build JASP desktop
         run: |
             git clone  https://github.com/jasp-stats/jasp-desktop.git
-            mkdir /home/runner/work/BuildBot/BuildBot/jasp-release/R/library && chmod -R 777 "/home/runner/work/BuildBot/BuildBot/jasp-release/R/library"
+            mkdir /home/runner/work/BuildBot/BuildBot/jasp-release/R/library && sudo chmod -R 777 "/home/runner/work/BuildBot/BuildBot/jasp-release/R/library"
             Rscript -e 'install.packages("renv", lib="/home/runner/work/BuildBot/BuildBot/jasp-release/R/library")'
             cmake -S ./jasp-desktop -B ./jasp-release
             # cmake -build ./jasp-release --target all
