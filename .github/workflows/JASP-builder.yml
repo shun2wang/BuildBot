@@ -23,7 +23,7 @@ jobs:
            
       - name: Rtools installation
         run: |
-           install.packages("renv", lib="/home/runner/work/BuildBot/BuildBot/jasp-release/R/library")
+           install.packages("renv")
         shell: Rscript {0}
 
       - name: Install Qt6
@@ -64,7 +64,8 @@ jobs:
         run: |
             git clone  https://github.com/jasp-stats/jasp-desktop.git
             #mkdir /home/runner/work/BuildBot/BuildBot/jasp-release/R/library && sudo chmod -R 777 "/home/runner/work/BuildBot/BuildBot/jasp-release/R/library"
-            #Rscript -e 'install.packages("renv", lib="/home/runner/work/BuildBot/BuildBot/jasp-release/R/library")'
+            Rscript -e dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE)  # create personal library
+            Rscript -e .libPaths(Sys.getenv("R_LIBS_USER"))  # add to the path
             cmake -S ./jasp-desktop -B ./jasp-release
             # cmake -build ./jasp-release --target all
             -DBoost_INCLUDE_DIR=${{steps.install-boost.outputs.BOOST_ROOT}}/include\
