@@ -72,5 +72,5 @@ jobs:
             -DBoost_LIBRARY_DIRS=${{steps.install-boost.outputs.BOOST_ROOT}}/lib
         env:
             BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
-            R_HOME: "/usr/local/bin/R"
+            R_HOME: "/usr/lib/R/"
             
