@@ -74,4 +74,5 @@ jobs:
         env:
             BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
             R_HOME: "/usr/lib/R/"
+            jags_HOME: "/usr/local/bin"
             
