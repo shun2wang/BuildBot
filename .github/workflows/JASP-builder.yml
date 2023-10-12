@@ -42,6 +42,7 @@ jobs:
             sudo apt install libboost-dev libjsoncpp25 libjsoncpp-dev libarchive13 libarchive-dev
             sudo apt install libxcb-xkb-dev libxcb-xkb1 libxcb-xinerama0 libxkbcommon-dev libxkbcommon-x11-dev autoconf zlib1g zlib1g-dev cmake
             sudo apt install gfortran build-essential flex libssl-dev libgl1-mesa-dev libsqlite3-dev r-base
+            sudo apt install jags
             
       - name: Install boost
         uses: MarkusJx/install-boost@v2.4.4
