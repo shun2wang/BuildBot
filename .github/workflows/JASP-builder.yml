@@ -75,6 +75,6 @@ jobs:
         env:
             BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
             R_HOME: "/usr/lib/R/"
-            jags_HOME: "/usr/bin/jags"
+            jags_HOME: "/usr/lib/x86_64-linux-gnu/"
             LIBJAGS: "/usr/lib/x86_64-linux-gnu/libjags.so"
             
