@@ -64,7 +64,8 @@ jobs:
         
       - name: Build JASP desktop
         run: |
-            git clone  https://github.com/jasp-stats/jasp-desktop.git
+            #git clone  https://github.com/jasp-stats/jasp-desktop.git
+            git clone -b JAGS_build https://github.com/shun2wang/jasp-desktop.git
             #mkdir /home/runner/work/BuildBot/BuildBot/jasp-release/R/library && sudo chmod -R 777 "/home/runner/work/BuildBot/BuildBot/jasp-release/R/library"
             #Rscript -e "dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE)"
             #Rscript -e ".libPaths(Sys.getenv("R_LIBS_USER"))"
@@ -75,6 +76,6 @@ jobs:
         env:
             BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
             R_HOME: "/usr/lib/R/"
-            jags_HOME: "/usr"
+            #jags_HOME: "/usr"
             #LIBJAGS: "/usr/lib/x86_64-linux-gnu/libjags.so"
             
