@@ -62,18 +62,18 @@ jobs:
             make
             sudo make install
         
-      - name: Build JASP desktop
+      - name: Configure JASP desktop
         run: |
             #git clone  https://github.com/jasp-stats/jasp-desktop.git
             git clone -b JAGS_build https://github.com/shun2wang/jasp-desktop.git
-            #mkdir /home/runner/work/BuildBot/BuildBot/jasp-release/R/library && sudo chmod -R 777 "/home/runner/work/BuildBot/BuildBot/jasp-release/R/library"
-            #Rscript -e "dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE)"
-            #Rscript -e ".libPaths(Sys.getenv("R_LIBS_USER"))"
             cmake -S ./jasp-desktop -B ./jasp-release
-            cmake --build ./jasp-release --target all
         env:
             BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
             R_HOME: "/usr/lib/R/"
             Boost_INCLUDE_DIR: "${{steps.install-boost.outputs.BOOST_ROOT}}/include"
             Boost_LIBRARY_DIRS: "${{steps.install-boost.outputs.BOOST_ROOT}}/lib"
+
+      - name: Build JASP desktop
+        run: |
+            cmake --build ./jasp-release --target all
             
