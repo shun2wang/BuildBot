@@ -70,7 +70,7 @@ jobs:
             #Rscript -e "dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE)"
             #Rscript -e ".libPaths(Sys.getenv("R_LIBS_USER"))"
             cmake -S ./jasp-desktop -B ./jasp-release
-            # cmake -build ./jasp-release --target all
+            cmake -build ./jasp-release --target all
         env:
             BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
             R_HOME: "/usr/lib/R/"
