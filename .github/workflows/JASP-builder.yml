@@ -66,9 +66,9 @@ jobs:
         run: |
             #git clone  https://github.com/jasp-stats/jasp-desktop.git
             git clone -b JAGS_build https://github.com/shun2wang/jasp-desktop.git
-            cd jasp-desktop
+            #cd jasp-desktop
             git submodule update --init
-            cd
+            #cd
             cmake -S ./jasp-desktop -B ./jasp-release
         env:
             BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
