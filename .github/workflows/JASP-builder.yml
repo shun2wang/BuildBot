@@ -23,7 +23,7 @@ jobs:
            
       - name: Rtools installation
         run: |
-           install.packages("renv")
+           install.packages(c("renv", "rstanarm", "nlme"))
         shell: Rscript {0}
 
       - name: Install Qt6
