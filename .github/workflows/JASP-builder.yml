@@ -26,6 +26,12 @@ jobs:
            #install.packages(c("renv", "rstanarm", "nlme"))
         shell: Rscript {0}
 
+      - name: Cache to speed
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/home/runner/work/BuildBot/Qt/
+      
       - name: Install Qt6
         uses: jurplel/install-qt-action@v3
         with:
