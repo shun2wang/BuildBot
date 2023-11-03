@@ -84,9 +84,11 @@ jobs:
             R_HOME: "/usr/lib/R/"
             Boost_INCLUDE_DIR: "${{steps.install-boost.outputs.BOOST_ROOT}}/include"
             Boost_LIBRARY_DIRS: "${{steps.install-boost.outputs.BOOST_ROOT}}/lib"
-            JASP_TEST_BUILD: "ON"
 
       - name: Build JASP desktop
         run: |
             cmake --build ./jasp-release --target all
+        env:
+            JASP_TEST_BUILD: "ON"
+            LINUX_LOCAL_BUILD: "ON"
             
