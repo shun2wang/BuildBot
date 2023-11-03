@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-       JASP_TEST_BUILD: "ON"
-       LINUX_LOCAL_BUILD: "ON"
        
     name:  deb build on ubuntu-latest
         
@@ -89,3 +87,6 @@ jobs:
       - name: Build JASP desktop
         run: |
             cmake --build ./jasp-release --target all
+        env:
+            JASP_TEST_BUILD: ON
+            LINUX_LOCAL_BUILD: ON
