@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+       JASP_TEST_BUILD: "ON"
+       LINUX_LOCAL_BUILD: "ON"
        
     name:  deb build on ubuntu-latest
         
@@ -52,7 +54,6 @@ jobs:
             sudo apt install libcurl4-openssl-dev #required by curl R packages
             sudo apt install libmpfr-dev #required by rmpfr packages
             sudo apt install jags
-            sudo dpkg -L jags
             
       - name: Install boost
         uses: MarkusJx/install-boost@v2.4.4
@@ -88,7 +89,3 @@ jobs:
       - name: Build JASP desktop
         run: |
             cmake --build ./jasp-release --target all
-        env:
-            JASP_TEST_BUILD: "ON"
-            LINUX_LOCAL_BUILD: "ON"
-            
