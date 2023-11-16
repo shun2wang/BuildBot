@@ -2,7 +2,7 @@ name: 'Build JASP desktop'
 
 on:
    push:
-     paths: ['**/JASP*.yml']
+
 
 jobs:
       
