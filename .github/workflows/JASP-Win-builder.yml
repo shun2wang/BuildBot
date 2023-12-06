@@ -36,7 +36,7 @@ jobs:
             arch: 'win64_msvc2019_64'
             install-deps: 'true'
             cache: 'true'
-            modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtwebview debug_info qt5compat qtshadertools qtwaylandcompositor'
+            modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtwebview debug_info qt5compat qtshadertools'
             tools: 'tools_qtcreator,qt.tools.qtcreator tools_ninja tools_cmake'
       
       - name: Install boost
