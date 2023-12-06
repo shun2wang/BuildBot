@@ -1,0 +1,76 @@
+name: 'Build JASP on Windows'
+
+on:
+   push:
+   workflow_dispatch:
+
+jobs:
+      
+   build-jasp:
+   
+    runs-on: windows-latest
+    env:
+       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+       
+    name: build on windows-latest
+        
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.3.2'
+           
+      - name: Rtools installation
+        run: |
+           #install.packages(c("renv", "rstanarm", "nlme"))
+        shell: Rscript {0}
+        
+      - name: Install Qt6
+        uses: jurplel/install-qt-action@v3
+        with:
+            version: 6.5.*
+            aqtversion: '==3.1.*'
+            host: 'windows'
+            target: 'desktop'
+            arch: 'win64_msvc2019_64'
+            install-deps: 'true'
+            cache: 'true'
+            modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtwebview debug_info qt5compat qtshadertools qtwaylandcompositor'
+            tools: 'tools_qtcreator,qt.tools.qtcreator tools_ninja tools_cmake'
+      
+      - name: Install boost
+        uses: MarkusJx/install-boost@v2.4.4
+        id: install-boost
+        with:
+            # REQUIRED: Specify the required boost version
+            # A list of supported versions can be found here:
+            # https://github.com/MarkusJx/prebuilt-boost/blob/main/versions-manifest.json
+            platform_version: 2022
+            boost_version: 1.81.0
+
+      - name: Install Readstat
+        run: |
+            wget https://github.com/WizardMac/ReadStat/releases/download/v1.1.9/readstat-1.1.9.tar.gz
+            tar -xzf readstat-*.tar.gz && cd readstat-*/
+            ./configure
+            make
+            sudo make install
+        
+      - name: Configure JASP desktop
+        run: |
+            git clone  https://github.com/jasp-stats/jasp-desktop.git
+            #git clone -b JAGS_build https://github.com/shun2wang/jasp-desktop.git
+            cd jasp-desktop
+            git submodule update --init
+            cd ..
+            cmake -S ./jasp-desktop -B ./jasp-release -DJASP_TEST_BUILD=ON
+        env:
+            BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+            R_HOME: "/usr/lib/R/"
+            Boost_INCLUDE_DIR: "${{steps.install-boost.outputs.BOOST_ROOT}}/include"
+            Boost_LIBRARY_DIRS: "${{steps.install-boost.outputs.BOOST_ROOT}}/lib"
+
+      - name: Build JASP desktop
+        run: |
+            cmake --build ./jasp-release --target all
