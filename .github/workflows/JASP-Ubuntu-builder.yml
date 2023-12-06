@@ -1,7 +1,9 @@
-name: 'Build JASP desktop'
+name: 'Build JASP on Linux'
 
 on:
    push:
+    paths: ['**.cpp', '**.h', '**.R', '**.cmake', '**.txt', '**.in', '**.yml']
+   workflow_dispatch:
 
 
 jobs:
