@@ -77,7 +77,7 @@ jobs:
             cd jasp-desktop
             git submodule update --init
             cd ..
-            cmake -S ./jasp-desktop -B ./jasp-release
+            cmake -S ./jasp-desktop -B ./jasp-release -DJASP_TEST_BUILD=ON
         env:
             BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
             R_HOME: "/usr/lib/R/"
@@ -87,6 +87,3 @@ jobs:
       - name: Build JASP desktop
         run: |
             cmake --build ./jasp-release --target all
-        env:
-            JASP_TEST_BUILD: ON
-            LINUX_LOCAL_BUILD: ON
