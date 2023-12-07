@@ -84,6 +84,7 @@ jobs:
             R_HOME: "/usr/lib/R/"
             Boost_INCLUDE_DIR: "${{steps.install-boost.outputs.BOOST_ROOT}}/include"
             Boost_LIBRARY_DIRS: "${{steps.install-boost.outputs.BOOST_ROOT}}/lib"
+            VC_TOOLS_REDIST_PATH: "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Redist\\MSVC\\v143"
 
       - name: Build JASP desktop
         run: |
