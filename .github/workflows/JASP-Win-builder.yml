@@ -49,14 +49,27 @@ jobs:
             platform_version: 2022
             boost_version: 1.81.0
 
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+        with:
+          vs-version: '17'
+          
       - name: Install Readstat
         run: |
             echo C:\rtools43\ucrt64.exe -lc "pacman -S autoconf automake libtool make mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-libiconv"   
-            #wget https://github.com/WizardMac/ReadStat/releases/download/v1.1.9/readstat-1.1.9.tar.gz
-            #tar -xzf readstat-*.tar.gz && cd readstat-*/
-            #./configure
-            #make
-            #sudo make install
+            echo C:\rtools43\ucrt64.exe -lc "wget https://github.com/WizardMac/ReadStat/releases/download/v1.1.9/readstat-1.1.9.tar.gz"
+            echo C:\rtools43\ucrt64.exe -lc "tar -xzf readstat-*.tar.gz && cd readstat-*/"
+            echo C:\rtools43\ucrt64.exe -lc "./configure && make && sudo make install"
+
+      - name: Installing Conan
+        run: |
+          pip install wheel setuptools
+          pip install conan --upgrade
+          conan --version
+      - name: Configuring Conan Profile
+        run: |
+          conan profile detect --name default
+          conan profile show
         
       - name: Configure JASP desktop
         run: |
