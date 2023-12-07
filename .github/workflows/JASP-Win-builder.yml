@@ -56,10 +56,10 @@ jobs:
           
       - name: Install Readstat
         run: |
-            echo C:\rtools43\ucrt64.exe /bin/bash -lc "pacman -S autoconf automake libtool make mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-libiconv"   
-            echo C:\rtools43\ucrt64.exe /bin/bash -lc "wget https://github.com/WizardMac/ReadStat/releases/download/v1.1.9/readstat-1.1.9.tar.gz"
-            echo C:\rtools43\ucrt64.exe /bin/bash -lc "tar -xzf readstat-*.tar.gz && cd readstat-*/"
-            echo C:\rtools43\ucrt64.exe /bin/bash -lc "./configure && make && sudo make install"
+            C:\rtools43\ucrt64.exe /bin/bash -lc "pacman -S autoconf automake libtool make mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-libiconv"   
+            C:\rtools43\ucrt64.exe /bin/bash -lc "wget https://github.com/WizardMac/ReadStat/releases/download/v1.1.9/readstat-1.1.9.tar.gz"
+            C:\rtools43\ucrt64.exe /bin/bash -lc "tar -xzf readstat-*.tar.gz && cd readstat-*/"
+            C:\rtools43\ucrt64.exe /bin/bash -lc "./configure && make && sudo make install"
 
       - name: Installing Conan
         run: |
