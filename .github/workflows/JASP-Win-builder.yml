@@ -49,7 +49,7 @@ jobs:
             platform_version: 2022
             toolset: msvc
             cache: true
-            boost_version: 1.81.0
+            boost_version: 1.83.0
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
