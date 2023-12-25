@@ -4,9 +4,6 @@ on:
    push:
    workflow_dispatch:
    
-env:
-   VCINSTALLDIR: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/
-   
 jobs:
       
    build-jasp:
