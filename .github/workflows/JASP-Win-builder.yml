@@ -38,23 +38,6 @@ jobs:
             cache: 'true'
             modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtwebview debug_info qt5compat qtshadertools'
             tools: 'tools_qtcreator,qt.tools.qtcreator tools_ninja tools_cmake'
-      
-      - name: Install boost
-        uses: MarkusJx/install-boost@v2.4.4
-        id: install-boost
-        with:
-            # REQUIRED: Specify the required boost version
-            # A list of supported versions can be found here:
-            # https://github.com/MarkusJx/prebuilt-boost/blob/main/versions-manifest.json
-            platform_version: 2022
-            toolset: msvc
-            cache: true
-            boost_version: 1.83.0
-
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.1
-        with:
-          vs-version: '17'
           
       - name: Install Readstat
         run: |
@@ -70,6 +53,7 @@ jobs:
           conan --version
           conan profile detect --name default
           conan profile show
+          conan install openssl/3.0.10@conan/stable
         
       - name: Configure JASP desktop
         run: |
