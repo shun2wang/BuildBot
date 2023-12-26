@@ -39,12 +39,15 @@ jobs:
             modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtwebview debug_info qt5compat qtshadertools'
             tools: 'tools_qtcreator,qt.tools.qtcreator tools_ninja tools_cmake'
           
-      - name: Install Readstat
+      - name: Build and install Readstat
         run: |
-            C:\rtools43\ucrt64.exe /bin/bash -lc "pacman -S autoconf automake libtool make mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-libiconv"   
-            C:\rtools43\ucrt64.exe /bin/bash -lc "wget https://github.com/WizardMac/ReadStat/releases/download/v1.1.9/readstat-1.1.9.tar.gz"
-            C:\rtools43\ucrt64.exe /bin/bash -lc "tar -xzf readstat-*.tar.gz && cd readstat-*/"
-            C:\rtools43\ucrt64.exe /bin/bash -lc "./configure && make && sudo make install"
+            set MSYS2_UCRT64_SHELL=C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64
+            %MSYS2_UCRT64_SHELL% -lc "pacman -Syyu"
+            %MSYS2_UCRT64_SHELL% -lc "pacman -S autoconf automake libtool make mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-libiconv"
+            %MSYS2_UCRT64_SHELL% -lc "pacman -S wget"
+            %MSYS2_UCRT64_SHELL% -lc "wget https://github.com/WizardMac/ReadStat/releases/download/v1.1.9/readstat-1.1.9.tar.gz"
+            %MSYS2_UCRT64_SHELL% -lc "tar -xzf readstat-*.tar.gz && cd readstat-*/"
+            %MSYS2_UCRT64_SHELL% -lc "./configure && make && sudo make install"
 
       - name: Installing and Configuring Conan
         run: |
@@ -61,12 +64,10 @@ jobs:
             cd jasp-desktop
             git submodule update --init
             cd ..
-            cmake -S ./jasp-desktop -B ./jasp-release\
-            -DJASP_TEST_BUILD=ON
-            -DVC_TOOLS_REDIST_PATH="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Redist/MSVC/v143"
+            cmake -S ./jasp-desktop -B ./jasp-release -DJASP_TEST_BUILD=ON -DVC_TOOLS_REDIST_PATH="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Redist/MSVC/v143"
         env:
-            BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
             R_HOME: "/usr/lib/R/"
+            VCINSTALLDIR: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/"
 
       - name: Build JASP desktop
         run: |
