@@ -58,8 +58,8 @@ jobs:
         
       - name: Configure JASP desktop
         run: |
-            git clone  https://github.com/jasp-stats/jasp-desktop.git
-            #git clone -b JAGS_build https://github.com/shun2wang/jasp-desktop.git
+            #git clone  https://github.com/jasp-stats/jasp-desktop.git
+            git clone -b bumpOpenssl https://github.com/shun2wang/jasp-desktop.git
             cd jasp-desktop
             git submodule update --init
             cd ..
