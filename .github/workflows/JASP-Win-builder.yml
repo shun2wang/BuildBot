@@ -41,7 +41,7 @@ jobs:
           
       - name: Build and install Readstat
         run: |
-            set MSYS2_UCRT64_SHELL=C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64
+            set MSYS2_UCRT64_SHELL="C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64"
             %MSYS2_UCRT64_SHELL% -lc "pacman -Syyu"
             %MSYS2_UCRT64_SHELL% -lc "pacman -S autoconf automake libtool make mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-libiconv"
             %MSYS2_UCRT64_SHELL% -lc "pacman -S wget"
