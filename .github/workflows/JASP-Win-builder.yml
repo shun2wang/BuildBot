@@ -53,7 +53,6 @@ jobs:
           conan --version
           conan profile detect --name default
           conan profile show
-          conan install openssl/3.0.10@conan/stable
         
       - name: Configure JASP desktop
         run: |
