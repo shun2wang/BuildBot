@@ -42,7 +42,7 @@ jobs:
       - name: Build and install Readstat
         shell: cmd
         run: |
-            C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman -Syyu"
+            C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman -Syu --noconfirm"
             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman -S autoconf automake libtool make mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-libiconv"
             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman -S wget"
             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/WizardMac/ReadStat/releases/download/v1.1.9/readstat-1.1.9.tar.gz"
