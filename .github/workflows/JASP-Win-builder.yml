@@ -40,6 +40,7 @@ jobs:
             tools: 'tools_qtcreator,qt.tools.qtcreator tools_ninja tools_cmake'
           
       - name: Build and install Readstat
+        shell: cmd
         run: |
             set MSYS2_UCRT64_SHELL="C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64"
             %MSYS2_UCRT64_SHELL% -lc "pacman -Syyu"
