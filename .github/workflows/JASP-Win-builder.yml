@@ -63,13 +63,11 @@ jobs:
             C:\rtools43\ucrt64.exe /bin/bash -lc "tar -xzf readstat-*.tar.gz && cd readstat-*/"
             C:\rtools43\ucrt64.exe /bin/bash -lc "./configure && make && sudo make install"
 
-      - name: Installing Conan
+      - name: Installing and Configuring Conan
         run: |
           pip install wheel setuptools
           pip install conan --upgrade
           conan --version
-      - name: Configuring Conan Profile
-        run: |
           conan profile detect --name default
           conan profile show
         
@@ -81,7 +79,7 @@ jobs:
             git submodule update --init
             cd ..
             cmake -S ./jasp-desktop -B ./jasp-release\
-            -DJASP_TEST_BUILD=ON\
+            -DJASP_TEST_BUILD=ON
             -DVC_TOOLS_REDIST_PATH="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Redist/MSVC/v143"\
             -DBoost_INCLUDE_DIR=${{steps.install-boost.outputs.BOOST_ROOT}}/include\
             -DBoost_LIBRARY_DIRS=${{steps.install-boost.outputs.BOOST_ROOT}}/lib
