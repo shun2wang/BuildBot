@@ -42,13 +42,12 @@ jobs:
       - name: Build and install Readstat
         shell: cmd
         run: |
-            set MSYS2_UCRT64_SHELL="C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64"
-            %MSYS2_UCRT64_SHELL% -lc "pacman -Syyu"
-            %MSYS2_UCRT64_SHELL% -lc "pacman -S autoconf automake libtool make mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-libiconv"
-            %MSYS2_UCRT64_SHELL% -lc "pacman -S wget"
-            %MSYS2_UCRT64_SHELL% -lc "wget https://github.com/WizardMac/ReadStat/releases/download/v1.1.9/readstat-1.1.9.tar.gz"
-            %MSYS2_UCRT64_SHELL% -lc "tar -xzf readstat-*.tar.gz && cd readstat-*/"
-            %MSYS2_UCRT64_SHELL% -lc "./configure && make && sudo make install"
+            C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman -Syyu"
+            C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman -S autoconf automake libtool make mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-libiconv"
+            C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman -S wget"
+            C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/WizardMac/ReadStat/releases/download/v1.1.9/readstat-1.1.9.tar.gz"
+            C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf readstat-*.tar.gz && cd readstat-*/"
+            C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "./configure && make && sudo make install"
 
       - name: Installing and Configuring Conan
         run: |
