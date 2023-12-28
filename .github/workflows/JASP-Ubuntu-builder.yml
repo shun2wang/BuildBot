@@ -2,7 +2,7 @@ name: 'Build JASP on Linux'
 
 on:
    push:
-    paths: ['**.cpp', '**.h', '**.R', '**.cmake', '**.txt', '**.in', '**.yml']
+    paths: ['**/JASP-Ubuntu-builder.yml']
    workflow_dispatch:
 
 
