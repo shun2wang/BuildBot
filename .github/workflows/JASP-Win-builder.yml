@@ -47,7 +47,7 @@ jobs:
       - name: Download Readstat
         run: C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/WizardMac/ReadStat/releases/download/v1.1.9/readstat-1.1.9.tar.gz"
       - name: Build and install Readstat
-        run: C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf readstat-*.tar.gz && cd readstat-*/ && export CFLAGS="-g -O2"; export CXXFLAGS="-g -O2" && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 && make && sudo make install"
+        run: C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf readstat-*.tar.gz && cd readstat-*/ && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-g -O2" && make && sudo make install"
 
       - name: Installing and Configuring Conan
         run: |
