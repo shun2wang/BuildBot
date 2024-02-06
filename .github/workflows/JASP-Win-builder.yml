@@ -43,10 +43,10 @@ jobs:
         run: C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/shun2wang/ReadStat/archive/refs/tags/v1.1.9.tar.gz"
       - name: Build and install Readstat
         run: |
-             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf readstat-*.tar.gz && cd readstat-*/ && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" && make && sudo make install"
-             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd readstat-*/ && make && sudo make install"
+             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf v1.1.9.tar.gz && cd v1.1.9*/ && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" && make && sudo make install"
+             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd v1.1.9*/ && make && sudo make install"
       - name: Build and install Readstat
-        run: C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd readstat-*/ && make && sudo make install"
+        run: C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd v1.1.9*/ && make && sudo make install"
   
 
       - name: Installing and Configuring Conan
