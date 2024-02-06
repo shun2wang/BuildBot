@@ -44,9 +44,9 @@ jobs:
       - name: Build and install Readstat
         run: |
              C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf readstat-*.tar.gz && cd readstat-*/ && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" && make && sudo make install"
-             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd cd readstat-*/ && make && sudo make install"
+             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd readstat-*/ && make && sudo make install"
       - name: Build and install Readstat
-        run: C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd cd readstat-*/ && make && sudo make install"
+        run: C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd readstat-*/ && make && sudo make install"
   
 
       - name: Installing and Configuring Conan
