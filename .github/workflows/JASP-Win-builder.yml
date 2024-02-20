@@ -44,7 +44,7 @@ jobs:
       - name: Build and install Readstat
         run: |
              C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf v1.1.*.tar.gz && cd ReadStat-*/ && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" && make && sudo make install"
-             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && ls && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv""
+             #C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && ls && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv""
       - name: Build and install Readstat
         run: C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && make && sudo make install"
   
