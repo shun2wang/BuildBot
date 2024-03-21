@@ -40,11 +40,12 @@ jobs:
         run: |
              C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "/usr/bin/update-ca-trust"
       - name: Ready dependencies for rtools
-        shell: cmd
         run: |
-              C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman --noconfirm -Syu mingw-w64-ucrt-x86_64-toolchain make autoconf automake wget cmake mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-jsoncpp"
+             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman --noconfirm -Sy mingw-w64-ucrt-x86_64-toolchain make autoconf automake wget cmake mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-jsoncpp"
       - name: Download Readstat
-        run: C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/shun2wang/ReadStat/archive/refs/tags/v1.1.9.tar.gz"
+        run: |
+             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/shun2wang/ReadStat/archive/refs/tags/v1.1.9.tar.gz"
+             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "find -name *1.1.9*.tar.gz"
       - name: Build and install Readstat
         run: |
              C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf v1.1.*.tar.gz && cd ReadStat-*/ && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" && make && sudo make install"
