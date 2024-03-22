@@ -48,7 +48,7 @@ jobs:
              C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "find -name *1.1.9*.tar.gz"
       - name: Build and install Readstat
         run: |
-             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf v1.1.*.tar.gz && cd ReadStat-*/ && ls"
+             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf v1.1.*.tar.gz && cd ReadStat-*/ && autoconf"
              C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf v1.1.*.tar.gz && cd ReadStat-*/ && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" && make && sudo make install"
       - name: Build and install Readstat
         run: C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && make && sudo make install"
