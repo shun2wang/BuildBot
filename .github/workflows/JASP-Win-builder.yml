@@ -73,6 +73,7 @@ jobs:
             cmake -S ./jasp-desktop -B ./jasp-release -DJASP_TEST_BUILD=ON -DVC_TOOLS_REDIST_PATH="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Redist/MSVC/v143"
         env:
             R_HOME: "/usr/lib/R/"
+            PATH: "C:/rtools43/ucrt64/bin"
             VCINSTALLDIR: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/"
 
       - name: Build JASP desktop
