@@ -12,6 +12,7 @@ jobs:
     runs-on: windows-latest
     env:
        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+       PATH: C:\rtools43\ucrt64\bin
        
     name: build on windows-latest
         
@@ -21,6 +22,7 @@ jobs:
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: 'release'
+          windows-path-include-rtools: true
         
       - name: Install Qt6
         uses: jurplel/install-qt-action@v3
