@@ -12,7 +12,6 @@ jobs:
     runs-on: windows-latest
     env:
        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-       PATH: C:\rtools43\ucrt64\bin
        
     name: build on windows-latest
         
