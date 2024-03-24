@@ -65,7 +65,7 @@ jobs:
         
       - name: Configure JASP desktop
         run: |
-            Set-Env PATH "c:/rtools43/ucrt64/bin;$($Env:PATH)"
+            setx PATH "C:/rtools43/ucrt64/bin;$PATH"
             git clone --depth 1 https://github.com/jasp-stats/jasp-desktop.git
             #git clone -b bumpOpenssl https://github.com/shun2wang/jasp-desktop.git
             cd jasp-desktop
