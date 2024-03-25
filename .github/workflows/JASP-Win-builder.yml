@@ -63,7 +63,6 @@ jobs:
           conan profile detect --name default
           conan profile show
           conan profile show --settings os=Windows
-          conan profile show --settings os_build=Windows
           conan profile show --settings arch=x86_64
           conan profile show --settings arch_build=x86_64
           conan profile show --settings compiler=Visual Studio
@@ -76,8 +75,8 @@ jobs:
       - name: Configure JASP desktop
         run: |
             setx PATH "C:/rtools43/ucrt64/bin;$PATH"
-            git clone --depth 1 https://github.com/jasp-stats/jasp-desktop.git
-            #git clone -b bumpOpenssl https://github.com/shun2wang/jasp-desktop.git
+            #git clone --depth 1 https://github.com/jasp-stats/jasp-desktop.git
+            git clone -b openSSLConan https://github.com/shun2wang/jasp-desktop.git
             cd jasp-desktop
             git submodule update --init
             cd ..
