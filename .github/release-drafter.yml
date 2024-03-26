@@ -5,7 +5,7 @@ categories:
   - title: 'Bug Fixes'
     labels:
       - 'fix'
-  - title: '📝 Documentation & Styling'
+  - title: 'Documentation'
     labels:
       - 'docs'
       - 'style'
