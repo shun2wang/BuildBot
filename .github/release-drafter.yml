@@ -1,10 +1,13 @@
 categories:
   - title: 'Features'
     labels:
-      - 'feat'
+      - 'feature'
+  - title: 'Enhancement'
+    labels:
+      - 'enhancement'
   - title: 'Bug Fixes'
     labels:
-      - 'fix'
+      - 'bugfix'
   - title: 'Documentation'
     labels:
       - 'docs'
@@ -15,6 +18,26 @@ categories:
       - 'chore'
       - 'test'
       - 'build'
+      
+autolabeler:
+  - label: 'feature'
+    title:
+      - '/feat:/i'
+  - label: 'chore'
+    title:
+      - '/chore:/i'
+    files:
+      - '*.md'
+      - '*.txt'
+      - '*.yml'
+  - label: 'bugfix'
+    title:
+      - '/fix:/i'
+  - label: 'enhancement'
+    title:
+      - '/enh:/i'
+    body:
+      - '/JIRA-[0-9]{1,4}/'
 
 exclude-labels:
   - 'skip-changelog'
