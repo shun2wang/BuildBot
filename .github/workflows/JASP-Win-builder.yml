@@ -62,14 +62,14 @@ jobs:
           conan --version
           conan profile detect --name default
           conan profile show
-          conan profile show --settings os=Windows
-          conan profile show --settings arch=x86_64
-          conan profile show --settings arch_build=x86_64
-          conan profile show --settings compiler=Visual Studio
-          conan profile show --settings compiler.version=16
-          conan profile show --settings build_type=Release
-          conan profile show --conf tools.microsoft.msbuild:vs_version=17
-          conan profile show --conf tools.cmake.cmaketoolchain:generator=Ninja
+          conan profile --settings os=Windows
+          conan profile --settings arch=x86_64
+          conan profile --settings compiler=Visual Studio
+          conan profile --settings compiler.version=16
+          conan profile --settings build_type=Release
+          conan profile --conf tools.microsoft.msbuild:vs_version=17
+          conan profile --conf tools.cmake.cmaketoolchain:generator=Ninja
+          conan profile show
           
         
       - name: Configure JASP desktop
