@@ -22,6 +22,7 @@ jobs:
         with:
           r-version: 'release'
           windows-path-include-rtools: true
+          windows-path-include-mingw: false
         
       - name: Install Qt6
         uses: jurplel/install-qt-action@v3
@@ -62,13 +63,13 @@ jobs:
           conan --version
           conan profile detect --name default
           conan profile show
-          conan profile --settings os=Windows
-          conan profile --settings arch=x86_64
-          conan profile --settings compiler=Visual Studio
-          conan profile --settings compiler.version=16
-          conan profile --settings build_type=Release
-          conan profile --conf tools.microsoft.msbuild:vs_version=17
-          conan profile --conf tools.cmake.cmaketoolchain:generator=Ninja
+          conan profile show --settings os=Windows
+          conan profile show --settings arch=x86_64
+          conan profile show --settings compiler=Visual Studio
+          conan profile show --settings compiler.version=16
+          conan profile show --settings build_type=Release
+          conan profile show --conf tools.microsoft.msbuild:vs_version=17
+          conan profile show --conf tools.cmake.cmaketoolchain:generator=Ninja
           conan profile show
           
         
@@ -82,7 +83,6 @@ jobs:
             cd ..
             cmake -S ./jasp-desktop -B ./jasp-release -DJASP_TEST_BUILD=ON -DVC_TOOLS_REDIST_PATH="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Redist/MSVC/v143"
         env:
-            R_HOME: "/usr/lib/R/"
             VCINSTALLDIR: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/"
 
       - name: Build JASP desktop
