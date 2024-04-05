@@ -2,7 +2,7 @@
 	path = Modules/testSubmodule
 	url = https://github.com/shun2wang/testSubmodule
 	branch = main
-[submodule "Modules/Common/jaspDescriptives"]
+[submodule "Modules/jaspDescriptives"]
 	path = Modules/jaspDescriptives
 	url = https://github.com/jasp-stats/jaspDescriptives
 	branch = master
