@@ -32,6 +32,8 @@ jobs:
             host: 'windows'
             target: 'desktop'
             arch: 'win64_msvc2019_64'
+            add-tools-to-path: 'true'
+            set-env: 'true'
             install-deps: 'true'
             cache: 'true'
             modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtwebview debug_info qt5compat qtshadertools'
