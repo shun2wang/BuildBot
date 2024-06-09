@@ -71,6 +71,9 @@ jobs:
             ./configure
             make
             sudo make install
+
+      - name: use mold as the default linker
+        uses: rui314/setup-mold@v1
         
       - name: Configure JASP desktop
         run: |
