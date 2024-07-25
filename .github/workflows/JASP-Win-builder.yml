@@ -27,7 +27,7 @@ jobs:
       - name: Install Qt6
         uses: jurplel/install-qt-action@v3
         with:
-            version: 6.5.*
+            version: 6.7.*
             aqtversion: '==3.1.*'
             host: 'windows'
             target: 'desktop'
@@ -39,10 +39,6 @@ jobs:
             modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtwebview debug_info qt5compat qtshadertools'
             tools: 'tools_qtcreator,qt.tools.qtcreator tools_ninja tools_cmake'
           
-      - name: update-ca-trust
-        shell: cmd
-        run: |
-             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "/usr/bin/update-ca-trust"
       - name: Ready dependencies for rtools
         run: |
              C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman --noconfirm -Sy mingw-w64-ucrt-x86_64-toolchain make autoconf automake wget cmake mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-jsoncpp"
