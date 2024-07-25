@@ -41,17 +41,17 @@ jobs:
           
       - name: Ready dependencies for rtools
         run: |
-             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman --noconfirm -Sy mingw-w64-ucrt-x86_64-toolchain make autoconf automake wget cmake mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-jsoncpp"
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman --noconfirm -Sy mingw-w64-ucrt-x86_64-toolchain make autoconf automake wget cmake mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-jsoncpp"
       - name: Download Readstat
         run: |
-             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/shun2wang/ReadStat/archive/refs/tags/v1.1.9.tar.gz"
-             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "find -name *1.1.9*.tar.gz"
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/shun2wang/ReadStat/archive/refs/tags/v1.1.9.tar.gz"
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "find -name *1.1.9*.tar.gz"
       - name: Build and install Readstat
         run: |
-             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf v1.1.*.tar.gz && cd ReadStat-*/ && ./autogen.sh"
-             C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" "
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf v1.1.*.tar.gz && cd ReadStat-*/ && ./autogen.sh"
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" "
       - name: Build and install Readstat
-        run: C:\rtools43\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && make && make install"
+        run: C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && make && make install"
   
 
       - name: Installing and Configuring Conan
