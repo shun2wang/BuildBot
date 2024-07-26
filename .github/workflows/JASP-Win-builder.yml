@@ -39,16 +39,18 @@ jobs:
             modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtwebview debug_info qt5compat qtshadertools'
             tools: 'tools_qtcreator,qt.tools.qtcreator tools_ninja tools_cmake'
 
-      - name: dependencies for rtools
+      - name: cache dependencies for rtools
         id: cache-dependencies-restore
         uses: actions/cache/restore@v4
         with:
           path: |
             C:\rtools44\ucrt64
           key: ${{ runner.os }}-rtools
-      - name: Build and install Readstat
+      - name: dependencies for rtools
         run: |
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman --noconfirm -Sy mingw-w64-ucrt-x86_64-toolchain make autoconf automake wget git cmake mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-jsoncpp"
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman --noconfirm -Sy mingw-w64-ucrt-x86_64-toolchain make \\
+             autoconf automake wget git cmake mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib \\
+             mingw-w64-ucrt-x86_64-jsoncpp mingw-w64-ucrt-x86_64-boost"
       - name: Save rtools dependencies
         id: cache-dependencies-save
         uses: actions/cache/save@v4
@@ -57,7 +59,7 @@ jobs:
             C:\rtools44\ucrt64
           key: ${{ runner.os }}-rtools
           
-      - name: Download Readstat
+      - name: Build and install Readstat
         run: |
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "git clone https://github.com/WizardMac/ReadStat.git"
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat"
