@@ -46,6 +46,9 @@ jobs:
           path: |
             C:\rtools44\ucrt64
           key: ${{ runner.os }}-rtools
+      - name: Build and install Readstat
+        run: |
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman --noconfirm -Sy mingw-w64-ucrt-x86_64-toolchain make autoconf automake wget git cmake mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-jsoncpp"
       - name: Save rtools dependencies
         id: cache-dependencies-save
         uses: actions/cache/save@v4
@@ -53,21 +56,15 @@ jobs:
           path: |
             C:\rtools44\ucrt64
           key: ${{ runner.os }}-rtools
-      - name: Ready dependencies for rtools
-        run: |
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman --noconfirm -Sy mingw-w64-ucrt-x86_64-toolchain make autoconf automake wget cmake mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-jsoncpp"
+          
       - name: Download Readstat
         run: |
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/shun2wang/ReadStat/archive/refs/tags/v1.1.9.tar.gz"
-             #C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "find -name *1.1.9*.tar.gz"
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
-      - name: Build and install Readstat
-        run: |
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf v1.1.*.tar.gz && cd ReadStat-*/ && ./autogen.sh"
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" "
-      - name: Build and install Readstat
-        run: C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && make && make install"
-  
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "git clone https://github.com/WizardMac/ReadStat.git"
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat"
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "export CFLAGS=-Wno-error; export CXXFLAGS=-Wno-error;"
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "autoreconf -i -f"
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32"
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "make -j && make install"
 
       - name: Installing and Configuring Conan
         run: |
