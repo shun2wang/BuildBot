@@ -52,7 +52,7 @@ jobs:
         with:
           path: |
             C:\rtools44\ucrt64
-          key: ${{ steps.cache-dependencies-restore.outputs.${{ runner.os }}-rtools }}
+          key: ${{ steps.cache-dependencies-restore.outputs.key }}
       - name: Ready dependencies for rtools
         run: |
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman --noconfirm -Sy mingw-w64-ucrt-x86_64-toolchain make autoconf automake wget cmake mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-jsoncpp"
