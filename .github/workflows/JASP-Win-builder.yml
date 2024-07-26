@@ -45,14 +45,14 @@ jobs:
         with:
           path: |
             C:\rtools44\ucrt64
-          key: ${{ runner.os }}-dependencies
+          key: ${{ runner.os }}-rtools
       - name: Save rtools dependencies
         id: cache-dependencies-save
         uses: actions/cache/save@v4
         with:
           path: |
             C:\rtools44\ucrt64
-          key: ${{ steps.cache-dependencies-restore.outputs.cache-dependencies-key }}
+          key: ${{ steps.cache-dependencies-restore.outputs.${{ runner.os }}-rtools }}
       - name: Ready dependencies for rtools
         run: |
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman --noconfirm -Sy mingw-w64-ucrt-x86_64-toolchain make autoconf automake wget cmake mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-jsoncpp"
