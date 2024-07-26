@@ -38,14 +38,28 @@ jobs:
             cache: 'true'
             modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtwebview debug_info qt5compat qtshadertools'
             tools: 'tools_qtcreator,qt.tools.qtcreator tools_ninja tools_cmake'
-          
+
+      - name: dependencies for rtools
+        id: cache-dependencies-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            C:\rtools44\ucrt64
+          key: ${{ runner.os }}-dependencies
+      - name: Save rtools dependencies
+        id: cache-dependencies-save
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            C:\rtools44\ucrt64
+          key: ${{ steps.cache-dependencies-restore.outputs.cache-dependencies-key }}
       - name: Ready dependencies for rtools
         run: |
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman --noconfirm -Sy mingw-w64-ucrt-x86_64-toolchain make autoconf automake wget cmake mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-jsoncpp"
       - name: Download Readstat
         run: |
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/shun2wang/ReadStat/archive/refs/tags/v1.1.9.tar.gz"
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "find -name *1.1.9*.tar.gz"
+             #C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "find -name *1.1.9*.tar.gz"
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
       - name: Build and install Readstat
         run: |
