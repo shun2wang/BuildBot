@@ -63,10 +63,10 @@ jobs:
       - name: Download Readstat
         run: |
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/shun2wang/ReadStat/archive/refs/tags/v1.1.9.tar.gz"
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "find -name *1.1.9*.tar.gz"
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
       - name: Build and install Readstat
         run: |
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf v1.1.*.tar.gz && cd ReadStat-*/ && ./autogen.sh"
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "tar -xzf *.tar.gz && cd ReadStat-*/ && ./autogen.sh"
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" "
       - name: Build and install Readstat
         run: C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && make && make install"
