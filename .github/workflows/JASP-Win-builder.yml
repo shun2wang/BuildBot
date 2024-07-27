@@ -67,17 +67,17 @@ jobs:
       - name: Build and install Readstat
         run: |
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && ./autogen.sh"
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" "
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" "
       - name: Build and install Readstat
-        run: C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat-*/ && make && make install"
-      - name: Build and install Readstat
-        run: |
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat"
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "export CFLAGS=-Wno-error; export CXXFLAGS=-Wno-error;"
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "autoreconf -i -f"
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32"
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "make -j && make install"
+        run: C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && make && make install"
+#      - name: Build and install Readstat
+#        run: |
+#             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat"
+#             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
+#             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "export CFLAGS=-Wno-error; export CXXFLAGS=-Wno-error;"
+#             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "autoreconf -i -f"
+#             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32"
+#             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "make -j && make install"
 
       - name: Installing and Configuring Conan
         run: |
