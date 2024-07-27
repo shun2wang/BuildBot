@@ -57,10 +57,12 @@ jobs:
             C:\rtools44\ucrt64
           key: ${{ runner.os }}-rtools
           
-      - name: Build and install Readstat
+      - name: Clone ReadStat
         run: |
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "git clone https://github.com/WizardMac/ReadStat.git"
-             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat/"
+      - name: Build and install Readstat
+        run: |
+             C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat"
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "export CFLAGS=-Wno-error; export CXXFLAGS=-Wno-error;"
              C:\rtools44\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "autoreconf -i -f"
