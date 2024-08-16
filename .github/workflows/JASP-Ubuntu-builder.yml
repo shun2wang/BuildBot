@@ -57,7 +57,7 @@ jobs:
             sudo apt install libmpfr-dev #required by rmpfr packages
             sudo apt install jags
             git clone https://github.com/shun2wang/freexl.git
-            ls
+            cd freexl && ./configure && make && sudo make install
             
       - name: Install boost
         uses: MarkusJx/install-boost@v2.4.4
