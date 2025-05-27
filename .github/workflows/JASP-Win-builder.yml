@@ -29,15 +29,12 @@ jobs:
         with:
             version: 6.8.*
             aqtversion: '==3.1.*'
-            host: 'windows'
+            host: 'linux'
             target: 'desktop'
-            arch: 'win64_msvc2019_64'
-            add-tools-to-path: 'true'
-            set-env: 'true'
-            install-deps: 'true'
+            arch: 'linux_gcc_64'
             cache: 'true'
-            modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtwebview debug_info qt5compat qtshadertools'
-            tools: 'tools_qtcreator,qt.tools.qtcreator tools_ninja tools_cmake'
+            modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtwebview debug_info qt5compat qtshadertools qtwaylandcompositor'
+            tools: 'tools_qtcreator,qt.tools.qtcreator tools_cmake tools_ninja'
 
       - name: cache dependencies for rtools
         id: cache-dependencies-restore
