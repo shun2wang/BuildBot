@@ -95,7 +95,7 @@ jobs:
         
       - name: Configure JASP desktop
         run: |
-            setx PATH "C:/rtools43/ucrt64/bin;$PATH"
+            setx PATH "C:/rtools45/ucrt64/bin;$PATH"
             git clone --depth 1 https://github.com/jasp-stats/jasp-desktop.git
             #git clone -b fixConanBuild https://github.com/shun2wang/jasp-desktop.git
             cd jasp-desktop
@@ -107,4 +107,4 @@ jobs:
 
       - name: Build JASP desktop
         run: |
-            cmake --build -DCMAKE_C_COMPILER="C:/rtools43/ucrt64/bin/gcc.exe" ./jasp-release --target all
+            cmake --build -DCMAKE_C_COMPILER="C:/rtools45/ucrt64/bin/gcc.exe" ./jasp-release --target all
