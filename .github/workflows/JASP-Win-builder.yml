@@ -84,6 +84,7 @@ jobs:
           conan profile detect --name default
           conan profile show
           conan profile show -o:h shared=False
+          conan profile show -c="brotli*:shared=True"
           conan profile show -c="tools.cmake.cmaketoolchain:generator=Ninja"
           conan profile show
           
