@@ -83,13 +83,8 @@ jobs:
           conan --version
           conan profile detect --name default
           conan profile show
-          conan install --settings os=Windows
-          conan install --settings arch=x86_64
-          conan install --settings compiler=Visual Studio
-          conan install --settings compiler.version=16
-          conan install --settings build_type=Release
-          conan install --conf tools.microsoft.msbuild:vs_version=17
-          conan install --conf tools.cmake.cmaketoolchain:generator=Ninja
+          conan profile show -o:h shared=False
+          conan profile show -c="tools.cmake.cmaketoolchain:generator=Ninja"
           conan profile show
           
         
