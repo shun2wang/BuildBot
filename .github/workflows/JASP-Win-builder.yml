@@ -74,10 +74,15 @@ jobs:
           audit_token: ${{ secrets.CONAN_AUDIT_TOKEN }}
           cache_packages: true
             
-      - name: Configure Conan
+      - name: Configure CMake Generator
+        shell: pwsh
         run: |
-            conan config home -cc tools.cmake.cmaketoolchain:generator=Ninja
-            conan profile show
+           $conanConfigHome = (conan config home).Trim()
+           $globalConfPath = Join-Path $conanConfigHome "global.conf"
+           New-Item -ItemType Directory -Force -Path $conanConfigHome | Out-Null
+           "tools.cmake.cmaketoolchain:generator=Ninja" | Set-Content -Path $globalConfPath -Encoding utf8
+           Get-Content $globalConfPath
+           conan config show *
         
       - name: Configure JASP desktop
         run: |
