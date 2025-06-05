@@ -67,26 +67,13 @@ jobs:
              C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" "
       - name: Build and install Readstat
         run: C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && make && make install"
-#      - name: Build and install Readstat
-#        run: |
-#             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat"
-#             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
-#             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "export CFLAGS=-Wno-error; export CXXFLAGS=-Wno-error;"
-#             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "autoreconf -i -f"
-#             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32"
-#             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "make -j && make install"
 
-      - name: Installing and Configuring Conan
-        run: |
-          pip install wheel setuptools
-          pip install conan --upgrade
-          conan --version
-          conan profile detect --name default
-          conan profile show
-          conan profile show -o:h shared=False
-          conan profile show -c="brotli*:shared=True"
-          conan profile show -c="tools.cmake.cmaketoolchain:generator=Ninja"
-          conan profile show
+      - name: Install Conan
+        uses: conan-io/setup-conan@v1
+        with:
+          audit_token: ${{ secrets.CONAN_AUDIT_TOKEN }}
+            conan config home -cc tools.cmake.cmaketoolchain:generator=Ninja
+            conan profile show
           
         
       - name: Configure JASP desktop
