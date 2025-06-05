@@ -72,9 +72,12 @@ jobs:
         uses: conan-io/setup-conan@v1
         with:
           audit_token: ${{ secrets.CONAN_AUDIT_TOKEN }}
+          cache_packages: true
+            
+      - name: Configure Conan
+        run: |
             conan config home -cc tools.cmake.cmaketoolchain:generator=Ninja
             conan profile show
-          
         
       - name: Configure JASP desktop
         run: |
