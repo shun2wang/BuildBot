@@ -95,9 +95,8 @@ jobs:
             cd ..
             cmake -S ./jasp-desktop -B ./jasp-release `
             -DCMAKE_GENERATOR="Ninja" `
-            -DRTOOLS_C_COMPILER="C:/rtools45/ucrt64/bin/gcc.exe" `
-            -DRTOOLS_CXX_COMPILER="C:/rtools45/ucrt64/bin/g++.exe" `
-            -DRTOOLS_MAKE_PROGRAM="C:/rtools45/ucrt64/bin/mingw32-make.exe" `
+            -DCMAKE_BUILD_TYPE="Release" `
+            -DCMAKE_PREFIX_PATH="C:/Qt/6.8.3/msvc2022_64" `
             -DJASP_TEST_BUILD=ON `
             -DRTOOLS_PATH="C:/rtools45/ucrt64" `
             -DCMAKE_PREFIX_PATH="C:/rtools45/ucrt64" `
