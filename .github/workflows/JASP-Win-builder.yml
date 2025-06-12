@@ -96,10 +96,10 @@ jobs:
             cmake -S ./jasp-desktop -B ./jasp-release `
             -DCMAKE_GENERATOR="Ninja" `
             -DCMAKE_BUILD_TYPE="Release" `
-            -DCMAKE_PREFIX_PATH="C:/Qt/6.8.3/msvc2022_64" `
+            #-DCMAKE_PREFIX_PATH="C:/Qt/6.8.3/msvc2022_64" `
             -DJASP_TEST_BUILD=ON `
             -DRTOOLS_PATH="C:/rtools45/ucrt64" `
-            -DCMAKE_PREFIX_PATH="C:/rtools45/ucrt64" `
+            #-DCMAKE_PREFIX_PATH="C:/rtools45/ucrt64" `
             -DVC_TOOLS_REDIST_PATH="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Redist/MSVC/v143"
         env:
             VCINSTALLDIR: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/"
