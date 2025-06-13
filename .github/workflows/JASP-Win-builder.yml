@@ -22,7 +22,7 @@ jobs:
         with:
           r-version: 'release'
           windows-path-include-rtools: true
-          windows-path-include-mingw: false
+          windows-path-include-mingw: true
         
       - name: Install Qt6
         uses: jurplel/install-qt-action@v3
