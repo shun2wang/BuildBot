@@ -85,7 +85,7 @@ jobs:
            conan config show *
         
       - name: Configure JASP desktop
-        shell: cmd
+        shell: powershell
         run: |
             # Temporarily set the PATH environment variable of the current step and put ucrt64/bin in front
             #$env:Path = "C:/rtools45/ucrt64/bin;$env:Path"
