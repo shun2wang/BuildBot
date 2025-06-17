@@ -25,13 +25,13 @@ jobs:
           windows-path-include-mingw: true
         
       - name: Install Qt6
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
             version: 6.8.*
             aqtversion: '==3.1.*'
-            host: 'linux'
+            host: 'windows'
             target: 'desktop'
-            arch: 'linux_gcc_64'
+            arch: 'win64_msvc2022_64'
             cache: 'true'
             modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtwebview debug_info qt5compat qtshadertools qtwaylandcompositor'
             tools: 'tools_qtcreator,qt.tools.qtcreator tools_cmake tools_ninja'
@@ -85,6 +85,7 @@ jobs:
            conan config show *
         
       - name: Configure JASP desktop
+        shell: cmd
         run: |
             # Temporarily set the PATH environment variable of the current step and put ucrt64/bin in front
             #$env:Path = "C:/rtools45/ucrt64/bin;$env:Path"
@@ -93,7 +94,7 @@ jobs:
             cd jasp-desktop
             git submodule update --init
             cd ..
-             D:/a/BuildBot/Qt/Tools/CMake_64/bin/cmake.exe -S ./jasp-desktop -B ./jasp-release `
+             cmake -S ./jasp-desktop -B ./jasp-release `
             -DCMAKE_CXX_COMPILER:STRING=%{Compiler:Executable:Cxx} `
             -DCMAKE_C_COMPILER:STRING=%{Compiler:Executable:C} `
             -DCMAKE_GENERATOR="Ninja" `
