@@ -87,7 +87,7 @@ jobs:
       - name: Configure JASP desktop
         run: |
             # Temporarily set the PATH environment variable of the current step and put ucrt64/bin in front
-            $env:Path = "C:/rtools45/ucrt64/bin;$env:Path"
+            $env:Path = "%ProgramFiles%/Microsoft Visual Studio/2022/Enterprise/VC/;C:/rtools45/ucrt64/bin;$env:Path"
             git clone --depth 1 https://github.com/jasp-stats/jasp-desktop.git
             #git clone -b fixConanBuild https://github.com/shun2wang/jasp-desktop.git
             cd jasp-desktop
