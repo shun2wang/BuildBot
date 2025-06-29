@@ -95,12 +95,12 @@ jobs:
             git submodule update --init
             cd ..
             cmake -S ./jasp-desktop -B ./jasp-release`
-            -DCMAKE_CXX_COMPILER:STRING=%{Compiler:Executable:Cxx} `
-            -DCMAKE_C_COMPILER:STRING=%{Compiler:Executable:C} `
-            -DCMAKE_GENERATOR="Ninja" `
-            -DCMAKE_BUILD_TYPE="Release" `
+            -DCMAKE_CXX_COMPILER:STRING=%{Compiler:Executable:Cxx}`
+            -DCMAKE_C_COMPILER:STRING=%{Compiler:Executable:C}`
+            -DCMAKE_GENERATOR="Ninja"`
+            -DCMAKE_BUILD_TYPE="Release"`
             -DJASP_TEST_BUILD=ON `
-            -DRTOOLS_PATH="C:/rtools45/ucrt64" `
+            -DRTOOLS_PATH="C:/rtools45/ucrt64"`
             -DVC_TOOLS_REDIST_PATH="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Redist/MSVC/v143"
         env:
             VCINSTALLDIR: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/"
