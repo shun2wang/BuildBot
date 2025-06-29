@@ -95,8 +95,6 @@ jobs:
             git submodule update --init
             cd ..
             cmake -S ./jasp-desktop -B ./jasp-release`
-            -DCMAKE_CXX_COMPILER=%{Compiler:Executable:Cxx}`
-            -DCMAKE_C_COMPILER=%{Compiler:Executable:C}`
             -DCMAKE_GENERATOR="Ninja"`
             -DCMAKE_BUILD_TYPE="Release"`
             -DJASP_TEST_BUILD=ON `
