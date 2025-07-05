@@ -57,16 +57,23 @@ jobs:
       - name: Clone ReadStat
         run: |
              C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "git clone https://github.com/WizardMac/ReadStat.git"
-      - name: Download Readstat
-        run: |
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/shun2wang/ReadStat/archive/refs/tags/v1.1.9.tar.gz"
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
+      # - name: Download Readstat
+      #   run: |
+      #        C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/shun2wang/ReadStat/archive/refs/tags/v1.1.9.tar.gz"
+      #        C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
       - name: Build and install Readstat
         run: |
              C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && ./autogen.sh"
              C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" "
       - name: Build and install Readstat
         run: C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && make && make install"
+
+      - name: Download Readstat
+        run: |
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "git clone https://github.com/WizardMac/librdata.git"
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd librdata && ./autogen.sh"
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd librdata && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 && make && make install"
 
       - name: Install Conan
         uses: conan-io/setup-conan@v1
