@@ -114,4 +114,4 @@ jobs:
       - name: Build JASP desktop
         run: |
             ls
-            cmake --build -DCMAKE_C_COMPILER="C:/rtools45/ucrt64/bin/gcc.exe" jasp-release --target all
+            $env:IQTA_TOOLS/CMake_64/bin/cmake.exe --build -DCMAKE_C_COMPILER="C:/rtools45/ucrt64/bin/gcc.exe" jasp-release --target all
