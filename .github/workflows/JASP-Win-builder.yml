@@ -96,6 +96,7 @@ jobs:
         run: |
             # Temporarily set the PATH environment variable of the current step and put ucrt64/bin in front
             $env:Path = "${QT_ROOT_DIR};C:/rtools45/ucrt64/bin;$env:Path"
+            $env:PATH -split ';' | ForEach-Object { $i=0 } { "$($i++): $_" }
             git clone --depth 1 https://github.com/jasp-stats/jasp-desktop.git
             #git clone -b fixConanBuild https://github.com/shun2wang/jasp-desktop.git
             cd jasp-desktop
@@ -114,6 +115,7 @@ jobs:
       - name: Build JASP desktop
         run: |
              $env:PATH = ($env:PATH -split ';' | Where-Object {$_ -notmatch "rtools"}) -join ';'
+             $env:PATH -split ';' | ForEach-Object { $i=0 } { "$($i++): $_" }
              & "$env:IQTA_TOOLS\CMake_64\bin\cmake.exe" --build jasp-release --target all `
         env: 
             VCINSTALLDIR: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/"
