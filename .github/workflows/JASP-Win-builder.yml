@@ -54,21 +54,18 @@ jobs:
       #       C:\rtools45\ucrt64
       #     key: ${{ runner.os }}-rtools
           
-      - name: Clone ReadStat
-        run: |
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "git clone https://github.com/WizardMac/ReadStat.git"
-      # - name: Download Readstat
+      # - name: Clone ReadStat
       #   run: |
-      #        C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "wget https://github.com/shun2wang/ReadStat/archive/refs/tags/v1.1.9.tar.gz"
-      #        C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
-      - name: Build and install Readstat
-        run: |
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && ./autogen.sh"
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" "
-      - name: Build and install Readstat
-        run: C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && make && make install"
+      #        C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "git clone https://github.com/WizardMac/ReadStat.git"
 
-      - name: Download Readstat
+      # - name: Build and install Readstat
+      #   run: |
+      #        C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && ./autogen.sh"
+      #        C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 CFLAGS="-U _spawnv" "
+      # - name: Build and install Readstat
+      #   run: C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd ReadStat && make && make install"
+
+      - name: Download and build Readstat
         run: |
              C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "git clone https://github.com/WizardMac/librdata.git"
              C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
