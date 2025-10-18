@@ -59,7 +59,7 @@ jobs:
            $conanConfigHome = (conan config home).Trim()
            $globalConfPath = Join-Path $conanConfigHome "global.conf"
            New-Item -ItemType Directory -Force -Path $conanConfigHome | Out-Null
-           "tools.cmake.cmaketoolchain:generator=Ninja`ntools.build:skip_test=true`n&:tools.build:skip_test=true" | Set-Content -Path $globalConfPath -Encoding utf8
+           "tools.cmake.cmaketoolchain:generator=Ninja`n&:tools.build:skip_test=true" | Set-Content -Path $globalConfPath -Encoding utf8
            Get-Content $globalConfPath
            conan config show *
         
