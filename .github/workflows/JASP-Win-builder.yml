@@ -73,7 +73,7 @@ jobs:
             $env:Path = "${QT_ROOT_DIR};$env:Path"
             $env:PATH -split ';' | ForEach-Object { $i=0 } { "$($i++): $_" }
             #git clone --depth 1 https://github.com/jasp-stats/jasp-desktop.git
-            git clone -b testConan https://github.com/shun2wang/jasp-desktop.git
+            git clone --depth=1 -b testConan https://github.com/shun2wang/jasp-desktop.git
             cd jasp-desktop
             git submodule update --init
             cd ..
