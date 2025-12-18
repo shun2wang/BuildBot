@@ -62,7 +62,9 @@ jobs:
            "tools.cmake.cmaketoolchain:generator=Ninja`ntools.build:skip_test=true" | Set-Content -Path $globalConfPath -Encoding utf8
            Get-Content $globalConfPath
            conan config show *
-        
+      
+      - uses: ilammy/msvc-dev-cmd@v1
+      
       - name: Configure JASP desktop
         #shell: powershell
         run: |
