@@ -95,8 +95,8 @@ jobs:
         env:
             VCINSTALLDIR: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC"
 
-      # - name: Add msbuild to PATH
-      #   uses: microsoft/setup-msbuild@v2
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
   
       - name: Build JASP desktop
         run: |
