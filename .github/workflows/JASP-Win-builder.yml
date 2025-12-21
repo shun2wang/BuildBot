@@ -63,7 +63,7 @@ jobs:
            Get-Content $globalConfPath
            conan config show *
       
-      - uses: ilammy/msvc-dev-cmd@v1
+      # - uses: ilammy/msvc-dev-cmd@v1
       
       - name: Configure JASP desktop
         #shell: powershell
