@@ -69,6 +69,20 @@ jobs:
         #shell: powershell
         run: |
             # Temporarily set the PATH environment variable of the current step and put ucrt64/bin in front
+            $searchRoot = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC"
+            Write-Host "Searching for Microsoft_VC143_CRT_x64.msm under $searchRoot..."
+            $msm = Get-ChildItem -Path $searchRoot -Filter Microsoft_VC143_CRT_x64.msm -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+            if ($msm) {
+              $mergeModulesDir = Split-Path $msm.DirectoryName -Parent
+              Write-Host "Found MSM at: $($msm.FullName)"
+              Write-Host "Setting VC_TOOLS_REDIST_PATH to: $mergeModulesDir"
+              $env:VC_TOOLS_REDIST_PATH = $mergeModulesDir
+            } else {
+              Write-Warning "Microsoft_VC143_CRT_x64.msm not found under $searchRoot. Listing $searchRoot for debugging:"
+              Get-ChildItem -Path $searchRoot -Recurse | Select-Object -First 50 | ForEach-Object { Write-Host $_.FullName }
+              # 可选择失败或继续（以下选择失败以避免后续错误）
+              throw "Microsoft_VC143_CRT_x64.msm not found - cannot set VC_TOOLS_REDIST_PATH"
+            }
             cmd /k "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
             echo "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
             echo "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
@@ -87,7 +101,7 @@ jobs:
             -DCMAKE_BUILD_TYPE="Release" `
             -DCMAKE_PREFIX_PATH="${QT_ROOT_DIR}" `
             -DJASP_TEST_BUILD=ON `
-            -DVC_TOOLS_REDIST_PATH="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Redist/MSVC/v143"
+            -DVC_TOOLS_REDIST_PATH="$env:VC_TOOLS_REDIST_PATH"
             # -DRTOOLS_PATH="C:/rtools45/ucrt64" `
             # -DCMAKE_RC_COMPILER="C:/Program Files (x86)/Windows Kits/10/bin/10.0.19041.0/x64/rc.exe" `
         env:
