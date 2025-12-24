@@ -110,3 +110,11 @@ jobs:
              & "$env:IQTA_TOOLS\CMake_64\bin\cmake.exe" --build jasp-release --target all `
         env: 
             VCINSTALLDIR: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/"
+
+      - name: Upload build zip files
+        run: |
+             & "$env:IQTA_TOOLS\CMake_64\bin\cmake.exe" --build jasp-release --target zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jasp-build-artifact
+          path: ${{ github.workspace }}/**/JASP.zip
