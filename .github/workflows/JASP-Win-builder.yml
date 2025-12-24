@@ -87,9 +87,7 @@ jobs:
             -DCMAKE_BUILD_TYPE="Release" `
             -DCMAKE_PREFIX_PATH="${QT_ROOT_DIR}" `
             -DJASP_TEST_BUILD=ON `
-            -DVC_TOOLS_REDIST_PATH="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Redist/MSVC/v143" `
-            -DVC_PATH="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC" `
-            -DVC_VARS_PATH_NATIVE="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build"
+            -DVS_PATH="C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC"
             # -DRTOOLS_PATH="C:/rtools45/ucrt64" `
             # -DCMAKE_RC_COMPILER="C:/Program Files (x86)/Windows Kits/10/bin/10.0.19041.0/x64/rc.exe" `
         env:
