@@ -112,7 +112,10 @@ jobs:
 
       - name: Upload build zip files
         run: |
-             & "$env:IQTA_TOOLS\CMake_64\bin\cmake.exe" --build . --target zip
+            & "$env:IQTA_TOOLS\CMake_64\bin\cmake.exe" --build jasp-release --target install
+            & "$env:IQTA_TOOLS\CMake_64\bin\cmake.exe" --build jasp-release --target collect-junctions
+            robocopy .\build\Install .\build\InstallClean /e /nfl  
+            & "$env:IQTA_TOOLS\CMake_64\bin\cmake.exe" --build jasp-release --target zip
       - uses: actions/upload-artifact@v4
         with:
           name: jasp-build-artifact
