@@ -106,6 +106,7 @@ jobs:
              # echo "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\VC\VCPackages" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
              # echo "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
              # $env:Path = "${QT_ROOT_DIR};C:/rtools45/ucrt64/bin;$env:Path"
+             cd jasp-desktop
              & "$env:IQTA_TOOLS\CMake_64\bin\cmake.exe" --build build --target all `
         env: 
             VCINSTALLDIR: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/"
@@ -113,6 +114,7 @@ jobs:
       - name: Upload build zip files
         shell: cmd
         run: |
+            cd jasp-desktop
             cmake --build build --target install
             cmake --build build --target collect-junctions
             robocopy .\build\Install .\build\InstallClean /e /nfl
