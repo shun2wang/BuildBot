@@ -80,7 +80,7 @@ jobs:
             git clone --depth=1 -b winBuildTest https://github.com/shun2wang/jasp-desktop.git
             cd jasp-desktop
             git submodule update --init
-            cd ..
+            #cd ..
             #conan install . --build=missing
             cmake -S . -B build `
             -DCMAKE_GENERATOR="Ninja" `
