@@ -81,7 +81,7 @@ jobs:
             cd jasp-desktop
             git submodule update --init
             cd ..
-            conan install ./jasp-desktop --build=missing
+            #conan install . --build=missing
             cmake -S . -B build `
             -DCMAKE_GENERATOR="Ninja" `
             -DCMAKE_BUILD_TYPE="Release" `
