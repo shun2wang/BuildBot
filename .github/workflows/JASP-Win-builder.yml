@@ -119,7 +119,7 @@ jobs:
             
       - uses: actions/upload-artifact@v4
         with:
-          name: jasp-build-artifact
+          name: jasp-build-artifact-${{ matrix.version }}
           path: |
                  ${{ github.workspace }}/**/JASP.${{ matrix.version }}
           compression-level: 0
