@@ -110,9 +110,12 @@ jobs:
             robocopy .\build\Install .\build\InstallClean /e /nfl
             cmake --build build --target zip
             "C:\Program Files\7-Zip\7z.exe" a -tzip JASP.zip .\build\Install\*
+            cmake --build build --target wix
             
       - uses: actions/upload-artifact@v4
         with:
           name: jasp-build-artifact
-          path: ${{ github.workspace }}/**/JASP.zip
+          path: |
+                 ${{ github.workspace }}/**/JASP.zip
+                 ${{ github.workspace }}/**/JASP.msi
           compression-level: 0
