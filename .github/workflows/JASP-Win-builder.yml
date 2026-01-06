@@ -12,6 +12,11 @@ jobs:
     runs-on: windows-latest
     env:
        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    strategy:
+      matrix:
+        version: [zip, msi]
+
        
     name: build on windows-latest
         
@@ -116,6 +121,5 @@ jobs:
         with:
           name: jasp-build-artifact
           path: |
-                 ${{ github.workspace }}/**/JASP.zip
-                 ${{ github.workspace }}/**/JASP.msi
+                 ${{ github.workspace }}/**/JASP.${{ matrix.version }}
           compression-level: 0
