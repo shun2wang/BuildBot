@@ -116,10 +116,17 @@ jobs:
             cmake --build build --target zip
             "C:\Program Files\7-Zip\7z.exe" a -tzip JASP.zip .\build\Install\*
             cmake --build build --target wix
-            
+
+      - name: Generate build timestamp
+        id: ts
+        shell: pwsh
+        run: |
+          $t = (Get-Date -Format 'yyyyMMddHHmmss')
+          echo "timestamp=$t" >> $env:GITHUB_OUTPUT
+       
       - uses: actions/upload-artifact@v4
         with:
-          name: jasp-build-artifact-${{ matrix.version }}
+          name: jasp-build-artifact--${{ steps.ts.outputs.timestamp }}-${{ matrix.version }}-
           path: |
                  ${{ github.workspace }}/**/JASP.${{ matrix.version }}
           compression-level: 0
