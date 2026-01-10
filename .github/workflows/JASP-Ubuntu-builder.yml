@@ -56,10 +56,15 @@ jobs:
             sudo apt install libcurl4-openssl-dev #required by curl R packages
             sudo apt install libmpfr-dev #required by rmpfr packages
             sudo apt install jags
-            sudo apt install librdata-dev
             sudo apt install libminizip-dev # required by freexl
             git clone https://github.com/shun2wang/freexl.git
             cd freexl && ./configure && make && sudo make install
+
+      - name: Install libradata
+        run: |
+            git clone https://github.com/WizardMac/librdata.git
+            cd librdata && ./configure && make && sudo make install
+            
             
       - name: Install boost
         uses: MarkusJx/install-boost@v2.4.4
