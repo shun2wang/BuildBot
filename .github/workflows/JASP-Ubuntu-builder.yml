@@ -63,7 +63,7 @@ jobs:
       - name: Install libradata
         run: |
             git clone https://github.com/WizardMac/librdata.git
-            cd librdata && ./configure && make && sudo make install
+            cd librdata && ./autogen.sh && ./configure && make && sudo make install
             
             
       - name: Install boost
