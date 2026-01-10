@@ -50,7 +50,7 @@ jobs:
             sudo rm -Rf /usr/local/include/curl 
             sudo rm -Rf /usr/local/lib/libcurl*
             sudo apt install libboost-dev libjsoncpp25 libjsoncpp-dev libarchive13 libarchive-dev
-            sudo apt install libxcb-xkb-dev libxcb-xkb1 libxcb-xinerama0 libxkbcommon-dev libxkbcommon-x11-dev autoconf zlib1g zlib1g-dev cmake
+            sudo apt install libxcb-xkb-dev libxcb-xkb1 libxcb-xinerama0 libxcb-cursor0 libxkbcommon-dev libxkbcommon-x11-dev autoconf zlib1g zlib1g-dev cmake
             sudo apt install gfortran build-essential flex libssl-dev libgl1-mesa-dev libsqlite3-dev r-base
             sudo apt install libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev #required by some r packgaes
             sudo apt install libcurl4-openssl-dev #required by curl R packages
@@ -87,7 +87,7 @@ jobs:
             cd jasp-desktop
             git submodule update --init
             cd ..
-            cmake -S ./jasp-desktop -B ./jasp-release -DJASP_TEST_BUILD=ON
+            cmake -S ./jasp-desktop -B ./jasp-release -DBUILD_TESTS=ON
         env:
             BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
             R_HOME: "/usr/lib/R/"
@@ -97,3 +97,11 @@ jobs:
       - name: Build JASP desktop
         run: |
             cmake --build ./jasp-release --target all
+            
+      - name: Run Tests
+        run: |
+            cd jasp-release
+            ls
+            export DISPLAY=:99
+            sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+            ./Tests/JASPTest
