@@ -56,6 +56,7 @@ jobs:
             sudo apt install libcurl4-openssl-dev #required by curl R packages
             sudo apt install libmpfr-dev #required by rmpfr packages
             sudo apt install jags
+            sudo apt install librdata-dev
             sudo apt install libminizip-dev # required by freexl
             git clone https://github.com/shun2wang/freexl.git
             cd freexl && ./configure && make && sudo make install
@@ -74,7 +75,7 @@ jobs:
             wget https://github.com/WizardMac/ReadStat/releases/download/v1.1.9/readstat-1.1.9.tar.gz
             tar -xzf readstat-*.tar.gz && cd readstat-*/
             ./configure
-            make
+            make CFLAGS='-Wno-error=use-after-free' CXXFLAGS='-Wno-error=use-after-free'
             sudo make install
 
       - name: use mold as the default linker
