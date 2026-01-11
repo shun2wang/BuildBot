@@ -32,7 +32,7 @@ jobs:
       - name: Install Qt6
         uses: jurplel/install-qt-action@v4
         with:
-            version: 6.9.2
+            version: 6.10.*
             aqtversion: '==3.1.*'
             host: 'windows'
             target: 'desktop'
@@ -117,6 +117,23 @@ jobs:
             "C:\Program Files\7-Zip\7z.exe" a -tzip JASP.zip .\build\Install\*
             cmake --build build --target wix
 
+      - name: Run Tests
+        run: |
+            cd jasp-desktop/build
+            ls
+            set QT_QPA_PLATFORM=offscreen
+
+            ./Tests/JASPTest &
+            TEST_PID=$!
+      
+            wait $TEST_PID
+            EXIT_CODE=$?
+      
+            if [ $EXIT_CODE -ne 0 ]; then
+              echo "Tests failed with exit code $EXIT_CODE"
+              exit $EXIT_CODE
+            fi
+            
       - name: Generate build timestamp
         id: ts
         shell: pwsh
