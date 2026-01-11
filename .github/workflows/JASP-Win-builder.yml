@@ -113,7 +113,7 @@ jobs:
             ls
             $env:QT_QPA_PLATFORM = "offscreen"
 
-            & ".JASPTest.exe"
+            & ".\JASPTest.exe"
 
             if ($LASTEXITCODE -ne 0) {
                 Write-Host "Tests failed with exit code $LASTEXITCODE"
