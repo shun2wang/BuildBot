@@ -89,7 +89,7 @@ jobs:
             -DCMAKE_GENERATOR="Ninja" `
             -DCMAKE_BUILD_TYPE="Release" `
             -DCMAKE_PREFIX_PATH="${QT_ROOT_DIR}" `
-            -DJASP_TEST_BUILD=ON `
+            -DBUILD_TESTS=ON `
             -DVS_PATH="C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC"
             # -DRTOOLS_PATH="C:/rtools45/ucrt64" `
             # -DCMAKE_RC_COMPILER="C:/Program Files (x86)/Windows Kits/10/bin/10.0.19041.0/x64/rc.exe" `
@@ -105,17 +105,6 @@ jobs:
              & "$env:IQTA_TOOLS\CMake_64\bin\cmake.exe" --build build --target all `
         env: 
             VCINSTALLDIR: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/"
-
-      - name: Upload build zip files
-        shell: cmd
-        run: |
-            cd jasp-desktop
-            cmake --build build --target install
-            cmake --build build --target collect-junctions
-            robocopy .\build\Install .\build\InstallClean /e /nfl
-            cmake --build build --target zip
-            "C:\Program Files\7-Zip\7z.exe" a -tzip JASP.zip .\build\Install\*
-            cmake --build build --target wix
 
       - name: Run Tests
         run: |
@@ -133,7 +122,18 @@ jobs:
               echo "Tests failed with exit code $EXIT_CODE"
               exit $EXIT_CODE
             fi
-            
+
+      - name: Upload build zip files
+        shell: cmd
+        run: |
+            cd jasp-desktop
+            cmake --build build --target install
+            cmake --build build --target collect-junctions
+            robocopy .\build\Install .\build\InstallClean /e /nfl
+            cmake --build build --target zip
+            "C:\Program Files\7-Zip\7z.exe" a -tzip JASP.zip .\build\Install\*
+            cmake --build build --target wix
+
       - name: Generate build timestamp
         id: ts
         shell: pwsh
