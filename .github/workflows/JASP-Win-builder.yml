@@ -107,21 +107,18 @@ jobs:
             VCINSTALLDIR: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/"
 
       - name: Run Tests
+        shell: pwsh
         run: |
             cd jasp-desktop/build
             ls
-            set QT_QPA_PLATFORM=offscreen
+            $env:QT_QPA_PLATFORM = "offscreen"
 
-            ./Tests/JASPTest &
-            TEST_PID=$!
-      
-            wait $TEST_PID
-            EXIT_CODE=$?
-      
-            if [ $EXIT_CODE -ne 0 ]; then
-              echo "Tests failed with exit code $EXIT_CODE"
-              exit $EXIT_CODE
-            fi
+            Start-Process -FilePath "./Tests/JASPTest" -PassThru | Wait-Process
+
+            if ($LASTEXITCODE -ne 0) {
+                Write-Host "Tests failed with exit code $LASTEXITCODE"
+                exit $LASTEXITCODE
+            }
 
       - name: Upload build zip files
         shell: cmd
