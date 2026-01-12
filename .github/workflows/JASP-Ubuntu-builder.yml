@@ -110,18 +110,21 @@ jobs:
             ls
             # export DISPLAY=:99
             # sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
-                export QT_QPA_PLATFORM=offscreen
+            export QT_QPA_PLATFORM=offscreen
 
-            ./Tests/JASPTest &
-            ./Tests/JASPTestDebugData &
-            ./Tests/JASPTestEngine &
-            ./Tests/JASPQuickTest &
-            TEST_PID=$!
-      
-            wait $TEST_PID
-            EXIT_CODE=$?
-      
-            if [ $EXIT_CODE -ne 0 ]; then
-              echo "Tests failed with exit code $EXIT_CODE"
-              exit $EXIT_CODE
-            fi
+            testCase=(
+              "./Tests/JASPTest"
+              "./Tests/JASPTestDebugData"
+              "./Tests/JASPTestEngine"
+              "./Tests/JASPQuickTest"
+            )
+
+            for test in "${testCase[@]}"; do
+              echo "Running test: $test"
+              $test
+              EXIT_CODE=$?
+              if [ $EXIT_CODE -ne 0 ]; then
+                echo "Test $test failed with exit code $EXIT_CODE"
+                exit $EXIT_CODE
+              fi
+            done
