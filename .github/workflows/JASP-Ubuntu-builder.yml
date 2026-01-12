@@ -112,19 +112,28 @@ jobs:
             # sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
             export QT_QPA_PLATFORM=offscreen
 
-            testCase=(
+            test_suites=(
               "./Tests/JASPTest"
               "./Tests/JASPTestDebugData"
               "./Tests/JASPTestEngine"
               "./Tests/JASPQuickTest"
             )
 
-            for test in "${testCase[@]}"; do
+            failure_count=0
+
+            for test in "${test_suites[@]}"; do
               echo "Running test: $test"
               $test
               EXIT_CODE=$?
               if [ $EXIT_CODE -ne 0 ]; then
                 echo "Test $test failed with exit code $EXIT_CODE"
-                exit $EXIT_CODE
+                failure_count=$((failure_count + 1))
               fi
             done
+
+            if [ $failure_count -ne 0 ]; then
+              echo "$failure_count test(s) of test suites failed."
+              exit 1
+            else
+              echo "All test suites passed successfully."
+            fi
