@@ -1,0 +1,148 @@
+name: 'Build JASP on Windows'
+
+on:
+   push:
+      paths: ["**/JASP-Win-Arm.yml"]
+   workflow_dispatch:
+   
+jobs:
+      
+   build-jasp:
+   
+    runs-on: windows-11-arm
+    env:
+       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    strategy:
+      matrix:
+        version: [zip, msi]
+
+       
+    name: build on windows-latest
+        
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          windows-path-include-rtools: false
+          windows-path-include-mingw: true
+        
+      - name: Install Qt6
+        uses: jurplel/install-qt-action@v4
+        with:
+            version: 6.10.*
+            aqtversion: '==3.1.*'
+            host: 'windows'
+            target: 'desktop'
+            arch: 'win64_msvc2022_arm64_cross_compiled'
+            cache: 'true'
+            modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtlanguageserver qtquickeffectmaker qtwebsockets debug_info qt5compat qtshadertools'
+            tools: 'tools_qtcreator,qt.tools.qtcreator tools_cmake tools_ninja'
+
+      - name: dependencies for rtools
+        run: |
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -clangarm64 -lc "pacman -S --noconfirm mingw-w64-clang-aarch64-toolchain make autoconf automake wget git cmake zip unzip mingw-w64-clang-aarch64-libiconv libtool zlib-devel mingw-w64-clang-aarch64-zlib mingw-w64-clang-aarch64-jsoncpp mingw-w64-clang-aarch64-readstat mingw-w64-clang-aarch64-boost"
+
+      - name: Download and build librdata
+        run: |
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -clangarm64 -lc "git clone https://github.com/WizardMac/librdata.git"
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -clangarm64 -lc "ls"
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -clangarm64 -lc "cd librdata && ./autogen.sh"
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -clangarm64 -lc "cd librdata && ./configure --host=aarch64-clang-mingw32 --build=aarch64-clang-mingw32 && make && make install"
+
+      - name: Install Conan
+        uses: conan-io/setup-conan@v1
+        with:
+          audit_token: ${{ secrets.CONAN_AUDIT_TOKEN }}
+          cache_packages: true
+            
+      - name: Configure CMake Generator
+        shell: pwsh
+        run: |
+           $conanConfigHome = (conan config home).Trim()
+           $globalConfPath = Join-Path $conanConfigHome "global.conf"
+           New-Item -ItemType Directory -Force -Path $conanConfigHome | Out-Null
+           "tools.cmake.cmaketoolchain:generator=Ninja`ntools.build:skip_test=true" | Set-Content -Path $globalConfPath -Encoding utf8
+           Get-Content $globalConfPath
+           conan config show *
+      
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+            arch: amd64_arm64
+      
+      - name: Configure JASP desktop
+        #shell: powershell
+        run: |
+            # Temporarily set the PATH environment variable of the current step and put ucrt64/bin in front
+            # cmd /k "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+            # echo "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+            # echo "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+            # echo "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\VC\VCPackages" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+            # echo "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+            $env:Path = "${QT_ROOT_DIR};$env:Path"
+            $env:PATH -split ';' | ForEach-Object { $i=0 } { "$($i++): $_" }
+            # git clone --depth 1 https://github.com/jasp-stats/jasp-desktop.git
+            git clone --depth=1 -b winBuildTest https://github.com/shun2wang/jasp-desktop.git
+            cd jasp-desktop
+            git submodule update --init
+            cmake -S . -B build `
+            -DCMAKE_GENERATOR="Ninja" `
+            -DCMAKE_BUILD_TYPE="Release" `
+            -DCMAKE_PREFIX_PATH="${QT_ROOT_DIR}" `
+            -DBUILD_TESTS=ON `
+            -DVS_PATH="C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC"
+            # -DRTOOLS_PATH="C:/rtools45/ucrt64" `
+            # -DCMAKE_RC_COMPILER="C:/Program Files (x86)/Windows Kits/10/bin/10.0.19041.0/x64/rc.exe" `
+        env:
+            VCINSTALLDIR: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC"
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+  
+      - name: Build JASP desktop
+        run: |
+             cd jasp-desktop
+             & "$env:IQTA_TOOLS\CMake_64\bin\cmake.exe" --build build --target all `
+        env: 
+            VCINSTALLDIR: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/"
+
+      - name: Run Tests
+        shell: pwsh
+        run: |
+            cd jasp-desktop/build
+            ls
+            $env:QT_QPA_PLATFORM = "offscreen"
+
+            & ".\JASPTest.exe"
+
+            if ($LASTEXITCODE -ne 0) {
+                Write-Host "Tests failed with exit code $LASTEXITCODE"
+                exit $LASTEXITCODE
+            }
+
+      - name: Upload build zip files
+        shell: cmd
+        run: |
+            cd jasp-desktop
+            cmake --build build --target install
+            cmake --build build --target collect-junctions
+            robocopy .\build\Install .\build\InstallClean /e /nfl
+            cmake --build build --target zip
+            "C:\Program Files\7-Zip\7z.exe" a -tzip JASP.zip .\build\Install\*
+            cmake --build build --target wix
+
+      - name: Generate build timestamp
+        id: ts
+        shell: pwsh
+        run: |
+          $t = (Get-Date -Format 'yyyyMMddHHmmss')
+          echo "timestamp=$t" >> $env:GITHUB_OUTPUT
+       
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jasp-build-artifact--${{ steps.ts.outputs.timestamp }}-${{ matrix.version }}-
+          path: |
+                 ${{ github.workspace }}/**/JASP.${{ matrix.version }}
+          compression-level: 0
