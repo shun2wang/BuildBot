@@ -1,4 +1,4 @@
-name: 'Build JASP on Windows'
+name: 'Build JASP on Windows ARM'
 
 on:
    push:
@@ -32,25 +32,25 @@ jobs:
       - name: Install Qt6
         uses: jurplel/install-qt-action@v4
         with:
-            version: 6.10.*
-            aqtversion: '==3.1.*'
-            host: 'windows'
+            version: 6.11.*
+            aqtversion: '==3.3.*'
+            host: 'windows_arm64'
             target: 'desktop'
-            arch: 'win64_msvc2022_arm64_cross_compiled'
+            arch: 'win64_msvc2022_arm64'
             cache: 'true'
-            modules: 'qtpositioning qtwebchannel qtwebengine qtwebsockets qtlanguageserver qtquickeffectmaker qtwebsockets debug_info qt5compat qtshadertools'
+            modules: 'qtpositioning qtwebchannel qtwebsockets qtlanguageserver qtquickeffectmaker qtwebsockets debug_info qt5compat qtshadertools'
             tools: 'tools_qtcreator,qt.tools.qtcreator tools_cmake tools_ninja'
 
       - name: dependencies for rtools
         run: |
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -clangarm64 -lc "pacman -S --noconfirm mingw-w64-clang-aarch64-toolchain make autoconf automake wget git cmake zip unzip mingw-w64-clang-aarch64-libiconv libtool zlib-devel mingw-w64-clang-aarch64-zlib mingw-w64-clang-aarch64-jsoncpp mingw-w64-clang-aarch64-readstat mingw-w64-clang-aarch64-boost"
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman -S --noconfirm mingw-w64-ucrt-x86_64-toolchain make autoconf automake wget git cmake zip unzip mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-jsoncpp mingw-w64-ucrt-x86_64-readstat mingw-w64-ucrt-x86_64-boost"
 
       - name: Download and build librdata
         run: |
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -clangarm64 -lc "git clone https://github.com/WizardMac/librdata.git"
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -clangarm64 -lc "ls"
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -clangarm64 -lc "cd librdata && ./autogen.sh"
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -clangarm64 -lc "cd librdata && ./configure --host=aarch64-clang-mingw32 --build=aarch64-clang-mingw32 && make && make install"
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "git clone https://github.com/WizardMac/librdata.git"
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd librdata && ./autogen.sh"
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd librdata && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 && make && make install"
 
       - name: Install Conan
         uses: conan-io/setup-conan@v1
@@ -69,8 +69,6 @@ jobs:
            conan config show *
       
       - uses: ilammy/msvc-dev-cmd@v1
-        with:
-            arch: amd64_arm64
       
       - name: Configure JASP desktop
         #shell: powershell
