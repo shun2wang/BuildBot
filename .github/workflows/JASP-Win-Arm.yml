@@ -39,7 +39,7 @@ jobs:
             arch: 'win64_msvc2022_arm64'
             cache: 'true'
             modules: 'qtpositioning qtwebchannel qtwebsockets qtlanguageserver qtquickeffectmaker qtwebsockets debug_info qt5compat qtshadertools'
-            tools: 'qt.tools.qtcreator tools_cmake tools_ninja'
+            tools: 'tools_cmake tools_ninja'
 
       - name: dependencies for rtools
         run: |
