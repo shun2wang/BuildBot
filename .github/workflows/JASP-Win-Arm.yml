@@ -32,8 +32,7 @@ jobs:
       - name: Install Qt6
         uses: jurplel/install-qt-action@v4
         with:
-            version: 6.11.*
-            aqtversion: '==3.3.*'
+            version: 6.8.*.
             host: 'windows_arm64'
             target: 'desktop'
             arch: 'win64_msvc2022_arm64'
@@ -43,15 +42,14 @@ jobs:
 
       - name: dependencies for rtools
         run: |
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman -S --noconfirm mingw-w64-ucrt-x86_64-toolchain make autoconf automake wget git cmake zip unzip mingw-w64-ucrt-x86_64-libiconv libtool zlib-devel mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-jsoncpp mingw-w64-ucrt-x86_64-readstat mingw-w64-ucrt-x86_64-boost"
+             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "pacman -S --noconfirm mingw-w64-ucrt-x86_64-readstat mingw-w64-ucrt-x86_64-librdata"
 
-      - name: Download and build librdata
-        run: |
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "git clone https://github.com/WizardMac/librdata.git"
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "ls"
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd librdata && ./autogen.sh"
-             C:\rtools45\msys2_shell.cmd -defterm -here -no-start -ucrt64 -lc "cd librdata && ./configure --host=x86_64-ucrt-mingw32 --build=x86_64-ucrt-mingw32 && make && make install"
-
+             
+      - name: install Qtwebengine for arm Windows
+        uses: lukka/run-vcpkg@v11
+      - run: |
+             vcpkg install qtwebengine
+        
       - name: Install Conan
         uses: conan-io/setup-conan@v1
         with:
